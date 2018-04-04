@@ -19,12 +19,21 @@ public class Enchere implements Serializable {
     
     @ManyToOne
     private Utilisateur utilisateur;
+    
+    @ManyToOne
+    private Vente vente;
 
     public Enchere() {
     }
 
     public Enchere(float montant) {
         this.montant = montant;
+    }
+
+    public Enchere(float montant, Utilisateur utilisateur, Vente vente) {
+        this.montant = montant;
+        this.utilisateur = utilisateur;
+        this.vente = vente;
     }
 
     public Long getId() {
@@ -74,6 +83,14 @@ public class Enchere implements Serializable {
 
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
+    }
+
+    public Vente getVente() {
+        return vente;
+    }
+
+    public void setVente(Vente vente) {
+        this.vente = vente;
     }
 
 }

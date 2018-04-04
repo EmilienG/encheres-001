@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entites.Utilisateur</class>
     <class>entites.Enchere</class>
+    <class>entites.Vente</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost;databaseName=encheres"/>
       <property name="javax.persistence.jdbc.user" value="sa"/>
