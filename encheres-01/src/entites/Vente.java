@@ -29,11 +29,13 @@ public class Vente implements Serializable {
     // associations ------------------
     @OneToMany(mappedBy = "vente")
     private Collection<Enchere> encheres;
-    
+
     @ManyToOne
     private Utilisateur utilisateur;
 
-    
+    @ManyToOne
+    private Produit produit;
+
     public Vente() {
         encheres = new ArrayList<>();
     }
@@ -46,8 +48,6 @@ public class Vente implements Serializable {
         this.duree = duree;
         this.utilisateur = utilisateur;
     }
-
-
 
     public Long getId() {
         return id;
@@ -75,11 +75,6 @@ public class Vente implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entites.Vente[ id=" + id + " ]";
     }
 
     public float getMontantInitial() {
@@ -130,4 +125,16 @@ public class Vente implements Serializable {
         this.utilisateur = utilisateur;
     }
 
+    public Produit getProduit() {
+        return produit;
+    }
+
+    public void setProduit(Produit produit) {
+        this.produit = produit;
+    }
+
+    @Override
+    public String toString() {
+        return "Vente[ montantInitial : " + montantInitial + " montantReserve : " + montantReserve + " dateDebut : " + dateDebut + " duree : " + duree + " (" + id + ") ]";
+    }
 }

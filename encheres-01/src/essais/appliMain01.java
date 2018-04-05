@@ -1,6 +1,7 @@
 package essais;
 
 import entites.Enchere;
+import entites.Produit;
 import entites.Utilisateur;
 import entites.Vente;
 import java.util.Date;
@@ -30,7 +31,10 @@ public class appliMain01 {
 
         Vente v01 = new Vente(505F, 1001F, d01, 55555, u01);
         Vente v02 = new Vente(125F, 1545F, d02, 5665, u02);
-        
+
+        Produit p01 = new Produit("Horloge", "super belle et utile en plus");
+        Produit p02 = new Produit("Tableau", "super ultra beau");
+
         //--------------- les associations -----
         e01.setUtilisateur(u01);
         e02.setUtilisateur(u01);
@@ -40,6 +44,9 @@ public class appliMain01 {
         e03.setVente(v02);
         v01.setUtilisateur(u01);
         v02.setUtilisateur(u02);
+        v01.setProduit(p01);
+        v02.setProduit(p02);
+
         //-------------- mettre les objets dans le cache de l'em(contexte de persistance) -----------
         em.persist(u01);
         em.persist(u02);
@@ -48,11 +55,27 @@ public class appliMain01 {
         em.persist(e03);
         em.persist(v01);
         em.persist(v02);
+        em.persist(p01);
+        em.persist(p02);
 
         //------------ recuperer une transaction, la demarrer et la valider avec un commit
         EntityTransaction et = em.getTransaction();
         et.begin();
         et.commit();
+
+        //-----------Affichage lecture vues -----------------
+        Utilisateur uu01 = em.find(Utilisateur.class, 2L);
+        System.out.println("TEST : " + uu01.getEncheres());
+
+        Enchere ee01 = em.find(Enchere.class, 1L);
+        System.out.println("ZZZZ : " + ee01.getUtilisateur());
+
+        Vente vv01 = em.find(Vente.class, 1L);
+        System.out.println("AAAA : " + vv01.getProduit());
+        System.out.println("DDDDD : " + vv01.getEncheres());
+
+        Produit pp01 = em.find(Produit.class, 1L);
+        System.out.println("BBB : " + pp01.getVentes());
 
         em.close();
         emf.close();
