@@ -64,18 +64,21 @@ public class appliMain01 {
         et.commit();
 
         //-----------Affichage lecture vues -----------------
-        Utilisateur uu01 = em.find(Utilisateur.class, 2L);
-        System.out.println("TEST : " + uu01.getEncheres());
-
-        Enchere ee01 = em.find(Enchere.class, 1L);
-        System.out.println("ZZZZ : " + ee01.getUtilisateur());
-
-        Vente vv01 = em.find(Vente.class, 1L);
-        System.out.println("AAAA : " + vv01.getProduit());
-        System.out.println("DDDDD : " + vv01.getEncheres());
-
+        Utilisateur uu01 = em.find(Utilisateur.class, 1L);
         Produit pp01 = em.find(Produit.class, 1L);
-        System.out.println("BBB : " + pp01.getVentes());
+        Vente vv01 = em.find(Vente.class, 1L);
+        Enchere ee01 = em.find(Enchere.class, 1L);
+        System.out.println("=================================================\n");
+        System.out.println("L'utilisateur d'une enchere : " + ee01.getUtilisateur());
+        System.out.println("La vente d'une enchere : " + ee01.getVente());
+        System.out.println("Le produits d'une vente : " + vv01.getProduit());
+        System.out.println("--------------------------------------------------");
+        System.out.println("Les ventes d'un utilisateur : " + uu01.getVentes());
+        System.out.println("Les encheres d'une vente : " + vv01.getEncheres());
+        System.out.println("Les ventes d'un produit : " + pp01.getVentes());
+        System.out.println("\n=================================================");
+        
+        
 
         em.close();
         emf.close();
