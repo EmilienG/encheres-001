@@ -6,6 +6,7 @@
     <class>entites.Enchere</class>
     <class>entites.Vente</class>
     <class>entites.Produit</class>
+    <class>entites.Categorie</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost;databaseName=encheres"/>
       <property name="javax.persistence.jdbc.user" value="sa"/>

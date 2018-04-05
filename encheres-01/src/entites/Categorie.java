@@ -7,35 +7,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Produit implements Serializable {
+public class Categorie implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nom;
-    private String description;
+    private String nom;    
 
-    // associations ------------------
-    @OneToMany(mappedBy = "produit")
-    private Collection<Vente> ventes;
-    
-    @ManyToOne
-    private Categorie categorie;
+// associations ------------------
+    @OneToMany(mappedBy = "categorie")
+    private Collection<Produit> produits;
 
-    public Produit() {
-        ventes = new ArrayList<>();
+    public Categorie() {
+        produits = new ArrayList<>();
     }
 
-    public Produit(String nom, String description) {
+    public Categorie(String nom) {
         this();
         this.nom = nom;
-        this.description = description;
     }
 
     public Long getId() {
@@ -56,10 +50,10 @@ public class Produit implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Produit)) {
+        if (!(object instanceof Categorie)) {
             return false;
         }
-        Produit other = (Produit) object;
+        Categorie other = (Categorie) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -74,33 +68,17 @@ public class Produit implements Serializable {
         this.nom = nom;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     @Override
     public String toString() {
-        return "Produit[ nom : " + nom + " description : " + description + " (" + id + ") ]";
+        return "Categorie[ nom : " + nom + " (" + id + ") ]";
     }
 
-    public Collection<Vente> getVentes() {
-        return ventes;
+    public Collection<Produit> getProduits() {
+        return produits;
     }
 
-    public void setVentes(Collection<Vente> ventes) {
-        this.ventes = ventes;
-    }
-
-    public Categorie getCategorie() {
-        return categorie;
-    }
-
-    public void setCategorie(Categorie categorie) {
-        this.categorie = categorie;
+    public void setProduits(Collection<Produit> produits) {
+        this.produits = produits;
     }
 
 }

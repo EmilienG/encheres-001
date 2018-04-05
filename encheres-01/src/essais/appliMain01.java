@@ -1,5 +1,6 @@
 package essais;
 
+import entites.Categorie;
 import entites.Enchere;
 import entites.Produit;
 import entites.Utilisateur;
@@ -35,6 +36,9 @@ public class appliMain01 {
         Produit p01 = new Produit("Horloge", "super belle et utile en plus");
         Produit p02 = new Produit("Tableau", "super ultra beau");
 
+        Categorie c01 = new Categorie("Art");
+        Categorie c02 = new Categorie("Meubles");
+
         //--------------- les associations -----
         e01.setUtilisateur(u01);
         e02.setUtilisateur(u01);
@@ -46,6 +50,8 @@ public class appliMain01 {
         v02.setUtilisateur(u02);
         v01.setProduit(p01);
         v02.setProduit(p02);
+        p01.setCategorie(c01);
+        p02.setCategorie(c02);
 
         //-------------- mettre les objets dans le cache de l'em(contexte de persistance) -----------
         em.persist(u01);
@@ -57,6 +63,8 @@ public class appliMain01 {
         em.persist(v02);
         em.persist(p01);
         em.persist(p02);
+        em.persist(c01);
+        em.persist(c02);
 
         //------------ recuperer une transaction, la demarrer et la valider avec un commit
         EntityTransaction et = em.getTransaction();
@@ -68,17 +76,17 @@ public class appliMain01 {
         Produit pp01 = em.find(Produit.class, 1L);
         Vente vv01 = em.find(Vente.class, 1L);
         Enchere ee01 = em.find(Enchere.class, 1L);
+        Categorie cc01 = em.find(Categorie.class, 1L);
         System.out.println("=================================================\n");
         System.out.println("L'utilisateur d'une enchere : " + ee01.getUtilisateur());
         System.out.println("La vente d'une enchere : " + ee01.getVente());
         System.out.println("Le produits d'une vente : " + vv01.getProduit());
+        System.out.println("La catégorie d'un produit : " + pp01.getCategorie());
         System.out.println("--------------------------------------------------");
         System.out.println("Les ventes d'un utilisateur : " + uu01.getVentes());
         System.out.println("Les encheres d'une vente : " + vv01.getEncheres());
         System.out.println("Les ventes d'un produit : " + pp01.getVentes());
         System.out.println("\n=================================================");
-        
-        
 
         em.close();
         emf.close();
