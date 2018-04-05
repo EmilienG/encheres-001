@@ -25,9 +25,13 @@ public class Utilisateur implements Serializable {
     // associations ------------------
     @OneToMany(mappedBy = "utilisateur")
     private Collection<Enchere> encheres;
+    
+    @OneToMany(mappedBy = "utilisateur")
+    private Collection<Vente> ventes;
 
     public Utilisateur() {
         encheres = new ArrayList<>();
+        ventes = new ArrayList<>();
     }
 
     public Utilisateur(String nom, String prenom, String email, String motDePasse) {
@@ -109,5 +113,13 @@ public class Utilisateur implements Serializable {
 
     public void setEncheres(Collection<Enchere> encheres) {
         this.encheres = encheres;
+    }
+
+    public Collection<Vente> getVentes() {
+        return ventes;
+    }
+
+    public void setVentes(Collection<Vente> ventes) {
+        this.ventes = ventes;
     }
 }

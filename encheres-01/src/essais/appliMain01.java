@@ -28,8 +28,9 @@ public class appliMain01 {
         Date d01 = new GregorianCalendar(2018, 3, 03).getTime();
         Date d02 = new GregorianCalendar(2019, 11, 13).getTime();
 
-        Vente v01 = new Vente(505F, 1001F, d01, 55555);
-        Vente v02 = new Vente(125F, 1545F, d02, 5665);
+        Vente v01 = new Vente(505F, 1001F, d01, 55555, u01);
+        Vente v02 = new Vente(125F, 1545F, d02, 5665, u02);
+        
         //--------------- les associations -----
         e01.setUtilisateur(u01);
         e02.setUtilisateur(u01);
@@ -37,6 +38,8 @@ public class appliMain01 {
         e01.setVente(v01);
         e02.setVente(v01);
         e03.setVente(v02);
+        v01.setUtilisateur(u01);
+        v02.setUtilisateur(u02);
         //-------------- mettre les objets dans le cache de l'em(contexte de persistance) -----------
         em.persist(u01);
         em.persist(u02);

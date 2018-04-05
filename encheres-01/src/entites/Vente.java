@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
@@ -28,18 +29,25 @@ public class Vente implements Serializable {
     // associations ------------------
     @OneToMany(mappedBy = "vente")
     private Collection<Enchere> encheres;
+    
+    @ManyToOne
+    private Utilisateur utilisateur;
 
+    
     public Vente() {
         encheres = new ArrayList<>();
     }
 
-    public Vente(float montantInitial, float montantReserve, Date dateDebut, int duree) {
+    public Vente(float montantInitial, float montantReserve, Date dateDebut, int duree, Utilisateur utilisateur) {
         this();
         this.montantInitial = montantInitial;
         this.montantReserve = montantReserve;
         this.dateDebut = dateDebut;
         this.duree = duree;
+        this.utilisateur = utilisateur;
     }
+
+
 
     public Long getId() {
         return id;
@@ -112,6 +120,14 @@ public class Vente implements Serializable {
 
     public void setEncheres(Collection<Enchere> encheres) {
         this.encheres = encheres;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 
 }
