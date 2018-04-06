@@ -2,6 +2,7 @@ package essais;
 
 import entites.Categorie;
 import entites.Enchere;
+import entites.EtatProduit;
 import entites.Produit;
 import entites.Utilisateur;
 import entites.Vente;
@@ -38,6 +39,9 @@ public class appliMain01 {
 
         Categorie c01 = new Categorie("Art");
         Categorie c02 = new Categorie("Meubles");
+        
+        EtatProduit ep01 = new EtatProduit("Bon état");
+        EtatProduit ep02 = new EtatProduit("Abimé");
 
         //--------------- les associations -----
         e01.setUtilisateur(u01);
@@ -52,6 +56,8 @@ public class appliMain01 {
         v02.setProduit(p02);
         p01.setCategorie(c01);
         p02.setCategorie(c02);
+        p01.setEtatProduit(ep01);
+        p02.setEtatProduit(ep02);
 
         //-------------- mettre les objets dans le cache de l'em(contexte de persistance) -----------
         em.persist(u01);
@@ -65,6 +71,9 @@ public class appliMain01 {
         em.persist(p02);
         em.persist(c01);
         em.persist(c02);
+        em.persist(ep01);
+        em.persist(ep02);
+        
 
         //------------ recuperer une transaction, la demarrer et la valider avec un commit
         EntityTransaction et = em.getTransaction();
@@ -82,6 +91,9 @@ public class appliMain01 {
         System.out.println("La vente d'une enchere : " + ee01.getVente());
         System.out.println("Le produits d'une vente : " + vv01.getProduit());
         System.out.println("La catégorie d'un produit : " + pp01.getCategorie());
+        System.out.println("L'état d'un produit : " + pp01.getEtatProduit());
+        System.out.println("L'utilisateur d'une vente : " + uu01.getVentes());
+        System.out.println("L'enchere d'une vente : " + vv01.getEncheres());
         System.out.println("--------------------------------------------------");
         System.out.println("Les ventes d'un utilisateur : " + uu01.getVentes());
         System.out.println("Les encheres d'une vente : " + vv01.getEncheres());

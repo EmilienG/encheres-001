@@ -17,7 +17,7 @@ public class Categorie implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nom;    
+    private String nom;
 
 // associations ------------------
     @OneToMany(mappedBy = "categorie")
@@ -68,17 +68,17 @@ public class Categorie implements Serializable {
         this.nom = nom;
     }
 
-    @Override
-    public String toString() {
-        return "Categorie[ nom : " + nom + " (" + id + ") ]";
-    }
-
     public Collection<Produit> getProduits() {
         return produits;
     }
 
     public void setProduits(Collection<Produit> produits) {
         this.produits = produits;
+    }
+
+    @Override
+    public String toString() {
+        return "Categorie[ nom : " + nom + " (" + id + ") ]";
     }
 
 }
