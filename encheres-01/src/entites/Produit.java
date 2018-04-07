@@ -31,6 +31,9 @@ public class Produit implements Serializable {
     @ManyToOne
     private EtatProduit etatProduit;
 
+    @ManyToOne
+    private EtatVente etatVente;
+
     public Produit() {
         ventes = new ArrayList<>();
     }
@@ -112,6 +115,14 @@ public class Produit implements Serializable {
     @Override
     public String toString() {
         return "Produit[ nom : " + nom + " description : " + description + " (" + id + ") ]";
+    }
+
+    public EtatVente getEtatVente() {
+        return etatVente;
+    }
+
+    public void setEtatVente(EtatVente etatVente) {
+        this.etatVente = etatVente;
     }
 
 }

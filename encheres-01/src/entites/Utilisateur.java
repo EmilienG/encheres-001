@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +25,7 @@ public class Utilisateur implements Serializable {
     // associations ------------------
     @OneToMany(mappedBy = "utilisateur")
     private Collection<Enchere> encheres;
-    
+
     @OneToMany(mappedBy = "utilisateur")
     private Collection<Vente> ventes;
 

@@ -3,15 +3,18 @@ package essais;
 import entites.Categorie;
 import entites.Enchere;
 import entites.EtatProduit;
+import entites.EtatVente;
 import entites.Produit;
 import entites.Utilisateur;
 import entites.Vente;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class appliMain01 {
 
@@ -39,9 +42,12 @@ public class appliMain01 {
 
         Categorie c01 = new Categorie("Art");
         Categorie c02 = new Categorie("Meubles");
-        
+
         EtatProduit ep01 = new EtatProduit("Bon état");
         EtatProduit ep02 = new EtatProduit("Abimé");
+
+        EtatVente ev01 = new EtatVente("Terminée");
+        EtatVente ev02 = new EtatVente("En cours");
 
         //--------------- les associations -----
         e01.setUtilisateur(u01);
@@ -58,6 +64,8 @@ public class appliMain01 {
         p02.setCategorie(c02);
         p01.setEtatProduit(ep01);
         p02.setEtatProduit(ep02);
+        p01.setEtatVente(ev01);
+        p02.setEtatVente(ev02);
 
         //-------------- mettre les objets dans le cache de l'em(contexte de persistance) -----------
         em.persist(u01);
@@ -73,7 +81,8 @@ public class appliMain01 {
         em.persist(c02);
         em.persist(ep01);
         em.persist(ep02);
-        
+        em.persist(ev01);
+        em.persist(ev02);
 
         //------------ recuperer une transaction, la demarrer et la valider avec un commit
         EntityTransaction et = em.getTransaction();
@@ -81,25 +90,40 @@ public class appliMain01 {
         et.commit();
 
         //-----------Affichage lecture vues -----------------
-        Utilisateur uu01 = em.find(Utilisateur.class, 1L);
-        Produit pp01 = em.find(Produit.class, 1L);
-        Vente vv01 = em.find(Vente.class, 1L);
-        Enchere ee01 = em.find(Enchere.class, 1L);
-        Categorie cc01 = em.find(Categorie.class, 1L);
-        System.out.println("=================================================\n");
-        System.out.println("L'utilisateur d'une enchere : " + ee01.getUtilisateur());
-        System.out.println("La vente d'une enchere : " + ee01.getVente());
-        System.out.println("Le produits d'une vente : " + vv01.getProduit());
-        System.out.println("La catégorie d'un produit : " + pp01.getCategorie());
-        System.out.println("L'état d'un produit : " + pp01.getEtatProduit());
-        System.out.println("L'utilisateur d'une vente : " + uu01.getVentes());
-        System.out.println("L'enchere d'une vente : " + vv01.getEncheres());
-        System.out.println("--------------------------------------------------");
-        System.out.println("Les ventes d'un utilisateur : " + uu01.getVentes());
-        System.out.println("Les encheres d'une vente : " + vv01.getEncheres());
-        System.out.println("Les ventes d'un produit : " + pp01.getVentes());
-        System.out.println("\n=================================================");
+        System.out.println("1) Lister tous produits");
+        String req01 = "select p from Produit p";
+        Query qr01 = em.createQuery(req01);
+        List<Produit> prod = qr01.getResultList();
+        for (Produit pro01 : prod) {
+            System.out.println(pro01);
+        }
+        System.out.println("---\n");
+        //----------------------------------------------------------------------
+        Long id = 2L;
+        System.out.println("1) Lister tous utilisateur d'une enchere (" + id + ")");
+        req01 = "select e.utilisateur from Enchere e where e.utilisateur.id= :paramID";
+        qr01 = em.createQuery(req01);
+        qr01.setParameter("paramID", id);
+        List<Utilisateur> util01 = qr01.getResultList();
+        for (Utilisateur ut : util01) {
+            System.out.println(ut);
+        }
+        System.out.println("---\n");
 
+//        Utilisateur uu01 = em.find(Utilisateur.class, 1L);
+//        Produit pp01 = em.find(Produit.class, 1L);
+//        Vente vv01 = em.find(Vente.class, 1L);
+//        Enchere ee01 = em.find(Enchere.class, 1L);
+//        Categorie cc01 = em.find(Categorie.class, 1L);
+//        System.out.println("=================================================\n");
+//        System.out.println("L'utilisateur d'une enchere : " + ee01.getUtilisateur());
+//        System.out.println("La vente d'une enchere : " + ee01.getVente());
+//        System.out.println("Le produits d'une vente : " + vv01.getProduit());
+//        System.out.println("La catégorie d'un produit : " + pp01.getCategorie());
+//        System.out.println("L'état d'un produit : " + pp01.getEtatProduit());
+//        System.out.println("L'utilisateur d'une vente : " + vv01.getUtilisateur());
+//        System.out.println("L'étatVente d'un produit : " + pp01.getEtatVente());
+//        System.out.println("\n=================================================");
         em.close();
         emf.close();
     }
